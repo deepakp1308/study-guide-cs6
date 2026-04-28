@@ -1,0 +1,637 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>StudyForge Study Guide</title>
+<meta charset="UTF-8">
+<style>
+  @page {
+    size: A4;
+    margin: 1.5cm 1.8cm;
+  }
+  body {
+    font-family: Arial, 'Helvetica Neue', Helvetica, sans-serif;
+    font-size: 10.5pt;
+    line-height: 1.4;
+    color: #000000;
+  }
+  h1 {
+    font-size: 20pt;
+    color: #000000;
+    border-bottom: 2px solid #1a3c5e;
+    padding-bottom: 4px;
+    margin-top: 20px;
+    margin-bottom: 8px;
+  }
+  h2 {
+    font-size: 15pt;
+    color: #000000;
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 3px;
+    margin-top: 16px;
+    margin-bottom: 6px;
+  }
+  h3 {
+    font-size: 12pt;
+    color: #000000;
+    margin-top: 12px;
+    margin-bottom: 4px;
+  }
+  h4 {
+    font-size: 11pt;
+    color: #000000;
+    margin-top: 10px;
+    margin-bottom: 4px;
+  }
+  p { margin: 4px 0; }
+  strong { color: #000000; }
+  ul, ol { margin: 4px 0 4px 18px; padding: 0; }
+  li { margin-bottom: 2px; }
+  code {
+    background: #f0f4f8;
+    padding: 1px 4px;
+    border-radius: 3px;
+    font-size: 9.5pt;
+  }
+  blockquote {
+    border-left: 3px solid #2a5f8f;
+    margin: 6px 0;
+    padding: 6px 14px;
+    background: #f8fafc;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    margin: 6px 0;
+    font-size: 10.5pt;
+  }
+  th, td {
+    border: 1px solid #999;
+    padding: 4px 6px;
+    text-align: left;
+  }
+  th {
+    background: #2a5f8f;
+    color: white;
+  }
+  tr:nth-child(even) { background: #f8fafc; }
+  hr {
+    border: none;
+    border-top: 1px solid #ddd;
+    margin: 10px 0;
+  }
+  .cover {
+    text-align: center;
+    padding-top: 60px;
+    page-break-after: always;
+  }
+  .cover h1 {
+    font-size: 32pt;
+    border: none;
+    color: #000000;
+    margin-bottom: 8px;
+  }
+  .cover .subtitle {
+    font-size: 16pt;
+    color: #333333;
+    margin-top: 6px;
+  }
+  .cover .meta {
+    font-size: 11pt;
+    color: #555555;
+    margin-top: 30px;
+  }
+  img {
+    max-width: 50%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    margin: 4px 0;
+    display: block;
+  }
+  .figure {
+    text-align: center;
+    margin: 8px 0;
+    page-break-inside: avoid;
+  }
+  .figure img {
+    margin: 0 auto 4px auto;
+    max-width: 50%;
+  }
+  .figure-caption {
+    font-size: 9pt;
+    color: #333333;
+    font-style: italic;
+    margin-top: 2px;
+  }
+</style>
+</head>
+<body>
+<div style="position:sticky;top:0;background:#1a3c5e;color:white;padding:10px 20px;text-align:center;z-index:999;font-family:Arial,sans-serif;font-size:14px;">StudyForge &mdash; <a href="study_guide.pdf" download style="color:white;text-decoration:underline;font-weight:bold;">PDF</a> &middot; <a href="study_guide.mp4" download style="color:white;text-decoration:underline;">Video</a> &middot; <a href="quiz.html" style="color:white;text-decoration:underline;">Interactive Quiz</a> &middot; <a href="cheat_sheet.pdf" style="color:white;text-decoration:underline;">Cheat Sheet</a> &middot; <a href="exam_simulator.html" style="color:white;text-decoration:underline;">Exam Simulator</a></div>
+<div class="cover">
+  <h1>StudyForge</h1>
+  <div class="subtitle"></div>
+  <div class="subtitle">CS6 Automation and Emerging Tech</div>
+  <div class="meta">Pages </div>
+  <div class="meta">Comprehensive Exam Preparation Guide</div>
+</div>
+<h1>CS6 Automation and Emerging Technologies — Cambridge IGCSE Computer Science Study Guide</h1>
+
+<h2>6.1 Automated Systems</h2>
+
+<p>An <strong>automated system</strong> performs actions without interaction with humans. They are used in small systems such as heating or air-conditioning in buildings, all the way up to flying aeroplanes and building cars.</p>
+
+<h3>Features of Automated Systems</h3>
+
+<p>An automated system usually has the following features:</p>
+
+<ul>
+  <li><strong>Sensors</strong> — to measure the environment (e.g. temperature sensor, light sensor, pH sensor, infrared sensor, pressure sensor).</li>
+  <li><strong>Microprocessor</strong> — to process data from the sensors and determine if an action needs to be taken.</li>
+  <li><strong>Actuators</strong> — to create a movement or perform an action (e.g. open a door, turn on heating).</li>
+</ul>
+
+<h3>How Automated Systems Work</h3>
+
+<ol>
+  <li><strong>Sensor reads the environment</strong> — sensors detect real-world analogue data (e.g. temperature 23.5 °C).</li>
+  <li><strong>Analogue-to-digital conversion</strong> — the sensor sends analogue data to an analogue-to-digital converter (ADC) because the microprocessor only understands binary (digital) data.</li>
+  <li><strong>Data sent to microprocessor</strong> — the digital data is transmitted to the microprocessor for processing.</li>
+  <li><strong>Comparison with stored values</strong> — the microprocessor compares the received data with pre-stored values or thresholds. These could be a single value, several values (min/max range), or a whole range.</li>
+  <li><strong>Decision</strong> — if the data is outside the stored range, the microprocessor sends a signal to the actuator to perform an action (e.g. turn on heating, open doors).</li>
+  <li><strong>Continuous loop</strong> — the whole process repeats until the system is turned off.</li>
+</ol>
+
+<p><strong>Flowchart description (Figure 6.2):</strong> START → Sensor reads environment → Data is converted to digital → Data is sent to microprocessor → Data compared to stored value/values → Decision: Is data in range? If YES, loop back to sensor reads. If NO, send signal to actuator to perform action, then loop back.</p>
+
+<h3>Control and Monitoring Systems</h3>
+
+<p>When considering a control or monitoring system, think in terms of <strong>Input → Process → Output</strong>:</p>
+
+<ul>
+  <li><strong>Input:</strong> The data from the sensors (e.g. pressure sensor detects a person, infrared sensor detects movement).</li>
+  <li><strong>Process:</strong> Analogue data converted to digital; microprocessor compares received data with stored values and determines the action.</li>
+  <li><strong>Output:</strong> Signal sent to actuator to perform the required action (e.g. open a door for 5 seconds, reset timer if another person detected).</li>
+</ul>
+
+<h3>Automation in Context — Benefits and Drawbacks</h3>
+
+<p>When evaluating the use of automation, consider these factors:</p>
+
+<table>
+  <tr>
+    <th>Factor</th>
+    <th>Benefit</th>
+    <th>Drawback</th>
+  </tr>
+  <tr>
+    <td>Initial cost</td>
+    <td>Long-term savings possible</td>
+    <td>High upfront cost for equipment, software, and programming</td>
+  </tr>
+  <tr>
+    <td>Running cost</td>
+    <td>Fewer employees needed long-term</td>
+    <td>Maintenance and electricity costs</td>
+  </tr>
+  <tr>
+    <td>Safety</td>
+    <td>Monitors environment continuously; reduces human error in dangerous tasks</td>
+    <td>If hacked or programming errors occur, could cause harm</td>
+  </tr>
+  <tr>
+    <td>Jobs</td>
+    <td>New maintenance/programming roles created</td>
+    <td>Replaces existing human jobs</td>
+  </tr>
+  <tr>
+    <td>Continuous operation</td>
+    <td>Works 24/7 without rest or breaks</td>
+    <td>Requires maintenance schedules</td>
+  </tr>
+  <tr>
+    <td>Precision</td>
+    <td>No human errors; consistent quality</td>
+    <td>Dependent on correct programming</td>
+  </tr>
+</table>
+
+<h4>Example Contexts:</h4>
+
+<p><strong>Car Manufacturing (Industry):</strong></p>
+<ul>
+  <li>High initial cost for robots and software</li>
+  <li>Running costs offset by fewer employees</li>
+  <li>Safer — robots monitor environment and stop if danger detected</li>
+  <li>Some jobs lost but new maintenance roles created</li>
+  <li>Continuous 24/7 operation means more cars built</li>
+  <li>High precision with fewer faulty products</li>
+</ul>
+
+<p><strong>Nuclear Power Plant (Science):</strong></p>
+<ul>
+  <li>High initial cost for devices and system development</li>
+  <li>Lower running costs with fewer people, though maintenance is expensive</li>
+  <li>Safer — less human error, people removed from dangerous areas</li>
+  <li>Some jobs replaced but new system maintenance roles created</li>
+  <li>Critical for continuous 24/7 monitoring without fatigue</li>
+  <li>High precision essential in this high-risk scenario</li>
+</ul>
+
+<p><strong>Greenhouse (Agriculture):</strong></p>
+<ul>
+  <li>Moderate initial cost for installation and programming</li>
+  <li>Low running cost — small system with modest electricity needs</li>
+  <li>Safety less relevant as it is not a dangerous process</li>
+  <li>Few jobs replaced as not many people monitored conditions</li>
+  <li>Allows instant adaptation when conditions change</li>
+  <li>More accurate readings enable instant adjustments</li>
+</ul>
+
+<h2>6.2 Robotics</h2>
+
+<h3>What Are Robots?</h3>
+
+<p>A <strong>robot</strong> is a mechanical device that performs an action, usually an action that a human would perform. <strong>Robotics</strong> is the area that covers the design, construction, and operation of robots.</p>
+
+<p>A robot can be controlled by a person, automated, or a mixture of both. Examples include drones (controlled by a person or programmed) and manufacturing machines in factories.</p>
+
+<h3>Characteristics of a Robot</h3>
+
+<p>Robots have the following features:</p>
+
+<ol>
+  <li><strong>Mechanical structure or framework</strong> — the physical body of the robot.</li>
+  <li><strong>Electrical components</strong> including:</li>
+</ol>
+<ul>
+  <li><strong>Sensors</strong> — to record the environment (e.g. position of a component being built)</li>
+  <li><strong>Microprocessors</strong> — to take readings from sensors and decide the action to perform</li>
+  <li><strong>Actuators</strong> — to make the robot move</li>
+</ul>
+<ol>
+  <li><strong>Programmable</strong> — a program can be written for the robot to follow.</li>
+</ol>
+
+<h2>6.3 Robots in Context</h2>
+
+<h3>Robots in Medicine</h3>
+
+<ul>
+  <li><strong>Robot nurses</strong> can move around hospitals to visit and interact with patients, saving doctors and nurses time.</li>
+  <li><strong>Remote surgery</strong> — a surgeon on the other side of the world can control a robot performing an operation. This means patients do not have to wait for specialists, and specialists are not required in every hospital.</li>
+  <li><strong>Drawbacks:</strong> Programming errors or hacking could cause harm. If a surgeon is controlling remotely and the network connection is lost, the procedure stops. Backup systems must be in place.</li>
+</ul>
+
+<h3>Robots in Agriculture</h3>
+
+<ul>
+  <li><strong>Automated tractors</strong> use satellites and satellite navigation to guide their movements, allowing farmers to focus on other tasks.</li>
+  <li>Robots can <strong>plant seeds, remove weeds, check and adjust growing environments</strong> — operating 24 hours a day, 7 days a week versus 8 hours for a human worker.</li>
+  <li>Used for <strong>repetitive tasks</strong> — high upfront cost and maintenance required, but may replace workers who would otherwise perform these tasks.</li>
+</ul>
+
+<h3>Robots in Transport</h3>
+
+<ul>
+  <li><strong>Self-driving cars</strong> read their environment and move accordingly. They could improve safety because they react faster than humans, but have high upfront cost and security risks if someone accesses and changes the programming.</li>
+  <li><strong>Factory transport robots</strong> move boxes of product to lorries. Completely automated, keeping people away from dangerous movements. They replace jobs but also create new maintenance roles.</li>
+</ul>
+
+<h3>Robots in Industry</h3>
+
+<ul>
+  <li>Factories can be <strong>completely automated with robots</strong> on production lines, each performing a specific role (e.g. car assembly).</li>
+  <li>Robots run all day, every day, with no need for rest. They are more precise and not prone to human error.</li>
+  <li>However, workers lose their jobs (though new maintenance roles are created), and the initial cost is very large.</li>
+  <li>Robots can manage <strong>packing</strong> (e.g. putting biscuits into boxes), <strong>testing products</strong> (e.g. checking temperatures from ovens), and performing <strong>minute precision tasks</strong> (e.g. building circuits).</li>
+</ul>
+
+<h3>Robots in Entertainment</h3>
+
+<ul>
+  <li><strong>Robot toys</strong> such as robot dogs allow people to interact with technology.</li>
+  <li><strong>Educational robots</strong> — children can build robots and program them to perform specific functions, learning how robots work and being introduced to programming.</li>
+</ul>
+
+<h3>Robots in Domestic Settings</h3>
+
+<ul>
+  <li><strong>Robot vacuum cleaners</strong> navigate rooms, detect obstacles, and change direction. They save people time but need monitoring and cannot handle stairs.</li>
+  <li><strong>Robot lawnmowers</strong> monitor the area being mowed to ensure no spaces are missed.</li>
+  <li><strong>Security robots</strong> can patrol an area, record video, detect motion or sound, and alert if an abnormality is detected.</li>
+</ul>
+
+<h2>6.4 Artificial Intelligence</h2>
+
+<h3>The Turing Test</h3>
+
+<p>Alan Turing developed a test in 1950, called the <strong>Turing Test</strong>, to assess whether a computer can display intelligence. It involves a person holding a conversation with a computer program and another person. If the person cannot determine which is the computer and which is the human, the computer has passed the Turing Test. Some argue this does not truly demonstrate intelligence as the computer is still following pre-written rules.</p>
+
+<h3>What Is Artificial Intelligence?</h3>
+
+<p><strong>Artificial intelligence (AI)</strong> is the development of programs to simulate human behaviour. There is a broad range of areas within AI:</p>
+
+<ul>
+  <li><strong>Image recognition</strong> — identifying objects or people in an image.</li>
+  <li><strong>Speech recognition</strong> — identifying words spoken and storing them.</li>
+  <li><strong>Natural language processing</strong> — receiving commands or instructions not in a set format and performing the required response.</li>
+  <li><strong>Computer games</strong> — moving elements or characters independently based on the environment.</li>
+  <li><strong>Diagnosis systems</strong> — for example, medical diagnosis.</li>
+</ul>
+
+<h3>Components of AI</h3>
+
+<p>Artificial intelligence programs can be simplified to four key features:</p>
+
+<ol>
+  <li><strong>Collection of data</strong> — a program needs data input, which might come from a user (e.g. speech recognition) or from sensors (e.g. infrared sensors for a robot to determine position and obstacles).</li>
+  <li><strong>A set of programmed rules</strong> — stored for the program to make decisions. For example, a rule that if an object is in front of the sensor, turn to the right.</li>
+  <li><strong>The ability to reason</strong> — using logic to develop facts from rules. For example: All dogs eat meat. Fred is a dog. Therefore, Fred must eat meat.</li>
+  <li><strong>The ability to learn and adapt</strong> — a specialist area known as <strong>machine learning</strong>. Systems can be programmed to learn and change their own rules and logic through training (e.g. showing a system images of dogs and horses with labels so it learns to identify the animal).</li>
+</ol>
+
+<h2>Machine Learning</h2>
+
+<p><strong>Machine learning</strong> is an area of artificial intelligence where a program can amend its own data and algorithms. Not all AI systems learn — some simply follow pre-programmed rules.</p>
+
+<h3>Supervised Learning</h3>
+
+<p>In supervised learning, the user tells the program what its data means. For example, in image recognition, the user provides labelled data (e.g. "this image shows a horse"). The system learns from these labelled examples.</p>
+
+<h3>Unsupervised Learning</h3>
+
+<p>In unsupervised learning, data is input and the program learns from the data without being told what it represents. An example is <strong>clustering</strong> — data is plotted on a graph, and the program identifies which items are close to each other. In image recognition, features in images are extracted and plotted, and the program groups images according to these features without human interaction.</p>
+
+<p><strong>Example — AI Chess Player:</strong> A computer game can use machine learning. An AI chess player alters its moves based on games it plays, simulating how a human learns. This could be supervised learning (told which moves are best) or unsupervised learning (playing other programs and changing its own rules without being told what to do).</p>
+
+<h2>Expert Systems</h2>
+
+<p>An <strong>expert system</strong> is a special type of system that attempts to emulate the expertise of a human, such as an engineer or doctor. The system asks the user questions to determine the solution or answer. Depending on each answer, the system asks a different question.</p>
+
+<p><strong>Example:</strong> A program to help fix a printer might ask: "Is there a green light on the printer?" If No → "Press the button to turn the printer on." If Yes → "Is there a red light underneath the paper picture?"</p>
+
+<h3>Four Key Features of an Expert System</h3>
+
+<ol>
+  <li><strong>Knowledge base</strong> — a list of facts (e.g. there is a green light below the power symbol).</li>
+  <li><strong>Rule base</strong> — links the facts using logical rules (e.g. if the green light is on, then the printer has power).</li>
+  <li><strong>Inference engine</strong> — the part of the program that decides which question to ask next, or which answer to give. It applies the rules to the knowledge base.</li>
+  <li><strong>User interface</strong> — the part that outputs questions and statements to the user, and allows the user to enter data.</li>
+</ol>
+
+<p><strong>Context:</strong> Organisations use expert systems for troubleshooting repetitive problems without requiring a human expert (e.g. internet connection troubleshooting).</p>
+
+<h2>Chapter Summary</h2>
+
+<ul>
+  <li>An automated system performs actions without human intervention.</li>
+  <li>An automated system has sensors, a microprocessor, and actuators.</li>
+  <li>Robotics is the creation and management of machines that perform actions that humans perform.</li>
+  <li>A robot contains a mechanical structure, electrical components (including parts of an automated system), and it can be programmed to perform specific actions.</li>
+  <li>Robots can be found in medicine, agriculture, transport, industry, entertainment, and domestic settings, each with advantages and disadvantages.</li>
+  <li>Artificial intelligence is an area of computer science that aims to develop systems that mimic human intelligence.</li>
+  <li>Machine learning is one area of AI where a program can amend its own data and algorithms.</li>
+  <li>An expert system attempts to simulate a human expert in a specific area.</li>
+  <li>An expert system is made up of a knowledge base, rule base, inference engine, and interface.</li>
+</ul>
+
+<h2>Important Terms</h2>
+
+<table>
+  <tr>
+    <th>Term</th>
+    <th>Definition</th>
+  </tr>
+  <tr>
+    <td>Automated system</td>
+    <td>A system that performs actions without interaction with humans, using sensors, a microprocessor, and actuators</td>
+  </tr>
+  <tr>
+    <td>Sensor</td>
+    <td>A device that measures the environment and sends data onwards (e.g. temperature, infrared, pressure, pH, light sensors)</td>
+  </tr>
+  <tr>
+    <td>Microprocessor</td>
+    <td>The component that processes data from sensors, compares it to stored values, and determines the required action</td>
+  </tr>
+  <tr>
+    <td>Actuator</td>
+    <td>A device that receives a signal from the microprocessor and performs a physical action (e.g. opening a door, turning on heating)</td>
+  </tr>
+  <tr>
+    <td>Analogue data</td>
+    <td>Real-world continuous data measured by sensors (e.g. 23.5 °C)</td>
+  </tr>
+  <tr>
+    <td>Digital data</td>
+    <td>Binary data (e.g. 01101010) that the microprocessor can understand and process</td>
+  </tr>
+  <tr>
+    <td>Analogue-to-digital converter (ADC)</td>
+    <td>A device that converts analogue sensor readings into digital binary data for the microprocessor</td>
+  </tr>
+  <tr>
+    <td>Robot</td>
+    <td>A mechanical device that performs an action, usually one that a human would perform</td>
+  </tr>
+  <tr>
+    <td>Robotics</td>
+    <td>The area that covers the design, construction, and operation of robots</td>
+  </tr>
+  <tr>
+    <td>Programmable</td>
+    <td>The ability to write a program for a robot or device to follow specific instructions</td>
+  </tr>
+  <tr>
+    <td>Artificial intelligence (AI)</td>
+    <td>The development of programs to simulate human behaviour, including image recognition, speech recognition, and reasoning</td>
+  </tr>
+  <tr>
+    <td>Turing Test</td>
+    <td>A test developed by Alan Turing in 1950 to assess whether a computer can display intelligence by fooling a human in conversation</td>
+  </tr>
+  <tr>
+    <td>Machine learning</td>
+    <td>A specialist area of AI where a program can learn, amend its own data and algorithms, and change its own rules and logic</td>
+  </tr>
+  <tr>
+    <td>Supervised learning</td>
+    <td>A type of machine learning where the user tells the program what its data means by providing labelled examples</td>
+  </tr>
+  <tr>
+    <td>Unsupervised learning</td>
+    <td>A type of machine learning where the program learns from data without being told what it represents, often using clustering</td>
+  </tr>
+  <tr>
+    <td>Expert system</td>
+    <td>A special type of AI system that attempts to emulate the expertise of a human by asking questions to determine a solution</td>
+  </tr>
+  <tr>
+    <td>Knowledge base</td>
+    <td>A component of an expert system that stores a list of facts</td>
+  </tr>
+  <tr>
+    <td>Rule base</td>
+    <td>A component of an expert system that links facts using logical rules</td>
+  </tr>
+  <tr>
+    <td>Inference engine</td>
+    <td>The part of an expert system that decides which question to ask next or which answer to give by applying rules to the knowledge base</td>
+  </tr>
+  <tr>
+    <td>User interface</td>
+    <td>The part of an expert system that outputs questions and statements to the user and allows input</td>
+  </tr>
+  <tr>
+    <td>Image recognition</td>
+    <td>An area of AI that identifies objects or people in an image</td>
+  </tr>
+  <tr>
+    <td>Speech recognition</td>
+    <td>An area of AI that identifies words spoken and stores them</td>
+  </tr>
+  <tr>
+    <td>Natural language processing</td>
+    <td>An area of AI that receives commands not in a set format and performs the required response</td>
+  </tr>
+  <tr>
+    <td>Reasoning</td>
+    <td>The ability of an AI system to use logic and rules to develop and derive new facts</td>
+  </tr>
+  <tr>
+    <td>Clustering</td>
+    <td>An unsupervised learning technique where data points are grouped based on similarity without human labels</td>
+  </tr>
+</table>
+
+<h2>Key Formulas and Concepts</h2>
+
+<ol>
+  <li><strong>Automated System Loop:</strong> Sensor reads → ADC converts analogue to digital → Microprocessor compares with stored values → Decision (in range: do nothing; out of range: signal actuator) → Loop back to sensor</li>
+  <li><strong>Input-Process-Output Model:</strong> All control and monitoring systems can be described as Input (sensor data) → Process (microprocessor comparison and decision) → Output (actuator action)</li>
+  <li><strong>Three Components of an Automated System:</strong> Sensors + Microprocessor + Actuators</li>
+  <li><strong>Three Characteristics of a Robot:</strong> Mechanical structure + Electrical components (sensors, microprocessors, actuators) + Programmable</li>
+  <li><strong>Four Components of AI:</strong> Collection of data + Programmed rules + Ability to reason + Ability to learn and adapt</li>
+  <li><strong>Four Components of an Expert System:</strong> Knowledge base + Rule base + Inference engine + User interface</li>
+  <li><strong>Two Types of Machine Learning:</strong> Supervised (labelled data provided by user) vs Unsupervised (program learns from unlabelled data)</li>
+  <li><strong>Six Factors for Evaluating Automation:</strong> Initial cost, Running cost, Safety, Replacing jobs, Continuous operation, Precision</li>
+</ol>
+
+<h2>Practice Questions</h2>
+
+<h3>Question CS6.01</h3>
+<p>What type of data does a microprocessor process?</p>
+
+<p><strong>Answer:</strong> A microprocessor processes digital (binary) data. Analogue data from sensors must first be converted to digital data by an analogue-to-digital converter (ADC) before the microprocessor can process it.</p>
+
+<h3>Question CS6.02</h3>
+<p>What tasks does a sensor perform in an automated system?</p>
+
+<p><strong>Answer:</strong> A sensor reads/measures the environment (e.g. temperature, light, motion, pressure) and sends the data onwards to be processed. Sensors do not process data themselves — they only detect and transmit it.</p>
+
+<h3>Question CS6.03</h3>
+<p>Describe the process by which an automatic door opens when a person is detected.</p>
+
+<p><strong>Answer:</strong> A sensor (e.g. infrared or pressure sensor) detects a person. The analogue data is converted to digital by an ADC. The digital data is sent to the microprocessor, which compares it to stored values. If the data indicates a person is present (out of normal range), the microprocessor sends a signal to an actuator to open the door. The process repeats continuously.</p>
+
+<h3>Question CS6.04</h3>
+<p>An auto-pilot system will fly an aeroplane without input from a person. Identify two benefits and two drawbacks of using the auto-pilot.</p>
+
+<p><strong>Answer:</strong> Benefits: (1) The system can operate continuously without fatigue, reducing the risk of errors from tired pilots. (2) The system provides greater precision in maintaining altitude, speed, and direction. Drawbacks: (1) High initial cost for the auto-pilot system and software development. (2) If there are programming errors or the system is hacked, the consequences could be catastrophic.</p>
+
+<h3>Question CS6.05</h3>
+<p>A weather station records and stores data about the current weather conditions. Describe the advantages and disadvantages of using the automated system.</p>
+
+<p><strong>Answer:</strong> Advantages: The system can continuously monitor 24/7 without human attention, providing more frequent and accurate readings. It reduces human error in recording data. Disadvantages: The initial cost of sensors and equipment is high. If the system malfunctions, data may be lost or inaccurate without a person to notice. Maintenance is required, and the system cannot adapt to unusual conditions the way a human could.</p>
+
+<h3>Question CS6.06</h3>
+<p>Define the term robot.</p>
+
+<p><strong>Answer:</strong> A robot is a mechanical device that performs an action, usually an action that a human would perform. It can be controlled by a person, automated, or a mixture of both.</p>
+
+<h3>Question CS6.07</h3>
+<p>Identify three characteristics of a robot.</p>
+
+<p><strong>Answer:</strong> (1) A mechanical structure or framework — the physical body of the robot. (2) Electrical components including sensors, microprocessors, and actuators. (3) Programmable — a program can be written for the robot to follow.</p>
+
+<h3>Question CS6.08</h3>
+<p>Identify two ways robots can be used in industry.</p>
+
+<p><strong>Answer:</strong> (1) Robots can manage the packing of items, for example putting packets of biscuits into boxes. (2) Robots can perform tasks requiring exact precision, such as building electronic circuits or assembling components on a production line.</p>
+
+<h3>Question CS6.09</h3>
+<p>Give one benefit and one drawback of the use of domestic robots.</p>
+
+<p><strong>Answer:</strong> Benefit: Domestic robots such as robot vacuum cleaners save people time as they can perform household tasks automatically. Drawback: They still need monitoring, have limitations (e.g. cannot go up and down stairs), and have a high initial purchase cost.</p>
+
+<h3>Question CS6.10</h3>
+<p>Discuss the use of driverless cars.</p>
+
+<p><strong>Answer:</strong> Driverless (self-driving) cars are robots that read their environment using sensors and move accordingly. Benefits include improved safety as robots can react faster than humans, and they can operate continuously. Drawbacks include high upfront cost, security risks if someone accesses and changes the car's programming, the technology is still being developed and may not handle all scenarios, and ethical questions about decision-making in accidents.</p>
+
+<h3>Question CS6.11</h3>
+<p>Define the term artificial intelligence.</p>
+
+<p><strong>Answer:</strong> Artificial intelligence (AI) is the development of programs to simulate human behaviour. It encompasses areas such as image recognition, speech recognition, natural language processing, computer games, and diagnosis systems.</p>
+
+<h3>Question CS6.12</h3>
+<p>Describe what is meant by machine learning.</p>
+
+<p><strong>Answer:</strong> Machine learning is a specialist area of artificial intelligence where a program can learn, amend its own data and algorithms, and change its own rules and logic. It can be supervised (the user provides labelled training data) or unsupervised (the program learns patterns from unlabelled data on its own).</p>
+
+<h3>Question CS6.13</h3>
+<p>State the purpose of an expert system.</p>
+
+<p><strong>Answer:</strong> The purpose of an expert system is to emulate the expertise of a human specialist (such as a doctor or engineer) by asking the user a series of questions and using a knowledge base, rule base, and inference engine to determine the solution or answer.</p>
+
+<h3>Question CS6.14</h3>
+<p>Give two examples of where expert systems can be used.</p>
+
+<p><strong>Answer:</strong> (1) Troubleshooting technical problems, such as diagnosing why a printer is not working. (2) Medical diagnosis, where the system asks about symptoms and suggests possible conditions or treatments.</p>
+
+<h3>Question CS6.15</h3>
+<p>An expert system has an inference engine and interface. Describe the two other component parts of an expert system.</p>
+
+<p><strong>Answer:</strong> (1) Knowledge base — this is a list of facts stored in the system (e.g. there is a green light below the power symbol on a printer). (2) Rule base — this links the facts together using logical rules (e.g. if the green light is on, then the printer has power).</p>
+
+<h3>Question CS6.16</h3>
+<p>Describe how machine learning can be used to develop speech recognition systems.</p>
+
+<p><strong>Answer:</strong> In a speech recognition system, machine learning is used to train the program to recognise spoken words. In supervised learning, the system is provided with audio samples labelled with the correct words. The program learns the patterns and characteristics of different words. Over time, the system improves its accuracy by processing more data. In unsupervised learning, the system could identify patterns in audio data by clustering similar sounds together. The system adapts its algorithms to handle different accents, speeds, and pronunciations.</p>
+
+<h3>Question CS6.17</h3>
+<p>A car has a proximity detection system. If an object is within a set distance from the car, an alarm is sounded in the car. Describe how the automated system detects objects and alerts the driver.</p>
+
+<p><strong>Answer:</strong> A proximity sensor (such as an ultrasonic sensor) continuously measures the distance to nearby objects. The analogue data from the sensor is converted to digital by an ADC. The digital data is sent to the microprocessor, which compares the distance reading to a pre-stored threshold value. If the measured distance is less than (below) the stored threshold, the microprocessor determines the object is too close and sends a signal to an actuator (speaker/buzzer) to sound an alarm. This process repeats continuously while the system is active.</p>
+
+<h3>Question CS6.18</h3>
+<p>A factory that builds furniture is thinking about buying robots to replace the workers. Discuss the advantages and disadvantages of the factory replacing the workers with robots.</p>
+
+<p><strong>Answer:</strong> Advantages: (1) Robots can work continuously 24/7 without rest, increasing production output. (2) Robots are more precise and not prone to human error, resulting in fewer faulty products. (3) Robots can perform dangerous tasks, improving safety. Disadvantages: (1) The initial cost of purchasing robots and developing software is very large. (2) Existing workers will lose their jobs, though new maintenance and programming roles will be created with different skill sets. (3) Robots require ongoing maintenance, and if they break down, production stops until repaired.</p>
+
+<h3>Question CS6.19</h3>
+<p>Describe how artificial intelligence can be used to allow robots to react to their environment.</p>
+
+<p><strong>Answer:</strong> AI enables robots to use sensors to collect data about their environment (e.g. infrared sensors to detect obstacles, cameras for image recognition). The AI system has programmed rules that determine actions based on sensor input. It can reason — for example, if an obstacle is detected ahead, the rule says to turn. Advanced AI robots can use machine learning to improve over time, adapting their behaviour based on past experiences. For example, a robot filming animals could learn which movements are less likely to startle the animals.</p>
+
+<h3>Question CS6.20</h3>
+<p>Explain the difference between supervised and unsupervised machine learning, giving an example of each.</p>
+
+<p><strong>Answer:</strong> In supervised learning, the user provides the program with labelled training data, telling it what each piece of data represents. Example: showing the system images labelled as "dog" or "horse" so it learns to identify each animal. In unsupervised learning, data is input without labels and the program identifies patterns on its own. Example: clustering, where the program plots features of images on a graph and groups similar images together without being told what they are.</p>
+
+<h2>Exam Focus Priorities</h2>
+
+<ol>
+  <li>Be able to describe the role of sensors, microprocessors, and actuators in an automated system — this is a very common exam question</li>
+  <li>Know the step-by-step process: sensor reads → ADC converts → microprocessor compares → actuator acts → loop repeats</li>
+  <li>Be able to evaluate automation in different contexts using the six factors (initial cost, running cost, safety, jobs, continuous operation, precision)</li>
+  <li>Know the three characteristics of a robot: mechanical structure, electrical components, and programmable</li>
+  <li>Be able to discuss benefits and drawbacks of robots in specific contexts (medicine, agriculture, transport, industry, entertainment, domestic)</li>
+  <li>Know the definition of AI and the four components: data collection, programmed rules, ability to reason, ability to learn/adapt</li>
+  <li>Understand the difference between supervised and unsupervised machine learning with examples</li>
+  <li>Know all four components of an expert system: knowledge base, rule base, inference engine, user interface</li>
+  <li>Practice describing automated systems for unfamiliar scenarios using the Input-Process-Output model</li>
+  <li>For extended-response questions, always give both advantages AND disadvantages with specific examples from the given context</li>
+</ol>
+
+</body>
+</html>

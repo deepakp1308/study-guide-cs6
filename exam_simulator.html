@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS6 Automation and Emerging Technologies — Cambridge IGCSE Computer Science Study Guide — Exam Simulator</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: Arial, sans-serif; background: #f5f7fa; color: #1a1a1a; line-height: 1.6; }
+  .header { background: #1a3c5e; color: white; padding: 20px; text-align: center; position: sticky; top: 0; z-index: 100; }
+  .header h1 { font-size: 22px; }
+  .timer { font-size: 28px; font-weight: 700; margin-top: 8px; font-variant-numeric: tabular-nums; }
+  .timer.warning { color: #ff9800; }
+  .timer.danger { color: #ff4444; animation: pulse 1s infinite; }
+  @keyframes pulse { 50% { opacity: 0.5; } }
+  .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+  .exam-info {
+    background: white; border-radius: 12px; padding: 20px; margin-bottom: 20px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08); text-align: center;
+  }
+  .exam-info .stat { display: inline-block; margin: 0 16px; }
+  .exam-info .stat-val { font-size: 24px; font-weight: 700; color: #2a5f8f; }
+  .exam-info .stat-label { font-size: 12px; color: #888; }
+  .q-card {
+    background: white; border-radius: 12px; padding: 24px; margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .q-card .q-header { display: flex; justify-content: space-between; margin-bottom: 12px; }
+  .q-card .q-num { font-size: 12px; color: #888; text-transform: uppercase; letter-spacing: 1px; }
+  .q-card .q-marks { font-size: 12px; color: #2a5f8f; font-weight: 600; }
+  .q-card .q-text { font-size: 16px; margin-bottom: 12px; }
+  .q-card textarea {
+    width: 100%; min-height: 100px; padding: 12px; border: 2px solid #e0e0e0;
+    border-radius: 8px; font-family: inherit; font-size: 14px; resize: vertical;
+  }
+  .q-card textarea:focus { border-color: #2a5f8f; outline: none; }
+  .answer-reveal {
+    margin-top: 12px; padding: 12px 16px; background: #f0faf0;
+    border-left: 3px solid #2d8a4e; border-radius: 4px; font-size: 14px;
+    display: none; white-space: pre-wrap;
+  }
+  .answer-reveal.show { display: block; }
+  .controls { text-align: center; margin: 24px 0; }
+  .controls button {
+    padding: 12px 32px; border: none; border-radius: 8px; font-size: 16px;
+    font-weight: 600; cursor: pointer; margin: 0 8px;
+  }
+  .btn-start { background: #2a5f8f; color: white; }
+  .btn-start:hover { background: #1a3c5e; }
+  .btn-submit { background: #2d8a4e; color: white; }
+  .btn-submit:hover { background: #1d6a3e; }
+  .btn-show { background: #e0e0e0; color: #333; }
+  .btn-show:hover { background: #d0d0d0; }
+  .hidden { display: none; }
+  .results {
+    background: white; border-radius: 12px; padding: 32px; text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .results h2 { font-size: 28px; margin-bottom: 16px; }
+  .results .time-taken { font-size: 18px; color: #555; }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>CS6 Automation and Emerging Technologies — Cambridge IGCSE Computer Science Study Guide — Exam Simulator</h1>
+  <div class="timer" id="timer">--:--</div>
+</div>
+<div class="container">
+  <div class="exam-info" id="examInfo">
+    <div class="stat"><div class="stat-val" id="totalQ">-</div><div class="stat-label">Questions</div></div>
+    <div class="stat"><div class="stat-val" id="totalM">-</div><div class="stat-label">Total Marks</div></div>
+    <div class="stat"><div class="stat-val" id="timeLimit">-</div><div class="stat-label">Minutes</div></div>
+    <div style="margin-top:16px;">
+      <button class="btn-start" id="btnStart" onclick="startExam()">Start Exam</button>
+    </div>
+  </div>
+  <div id="questionsArea" class="hidden"></div>
+  <div id="submitArea" class="hidden controls">
+    <button class="btn-submit" onclick="submitExam()">Submit &amp; View Answers</button>
+  </div>
+  <div id="resultsArea" class="hidden"></div>
+</div>
+<script>
+const EXAM = {"title": "CS6 Automation and Emerging Technologies \u2014 Cambridge IGCSE Computer Science Study Guide", "timeMinutes": 45, "questions": [{"id": "Question CS6.01", "question": "What type of data does a microprocessor process?", "answer": "A microprocessor processes digital (binary) data. Analogue data from sensors must first be converted to digital data by an analogue-to-digital converter (ADC) before the microprocessor can process it.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.02", "question": "What tasks does a sensor perform in an automated system?", "answer": "A sensor reads/measures the environment (e.g. temperature, light, motion, pressure) and sends the data onwards to be processed. Sensors do not process data themselves \u2014 they only detect and transmit it.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.03", "question": "Describe the process by which an automatic door opens when a person is detected.", "answer": "A sensor (e.g. infrared or pressure sensor) detects a person. The analogue data is converted to digital by an ADC. The digital data is sent to the microprocessor, which compares it to stored values. If the data indicates a person is present (out of normal range), the microprocessor sends a signal to an actuator to open the door. The process repeats continuously.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.04", "question": "An auto-pilot system will fly an aeroplane without input from a person. Identify two benefits and two drawbacks of using the auto-pilot.", "answer": "Benefits: (1) The system can operate continuously without fatigue, reducing the risk of errors from tired pilots. (2) The system provides greater precision in maintaining altitude, speed, and direction. Drawbacks: (1) High initial cost for the auto-pilot system and software development. (2) If there are programming errors or the system is hacked, the consequences could be catastrophic.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.05", "question": "A weather station records and stores data about the current weather conditions. Describe the advantages and disadvantages of using the automated system.", "answer": "Advantages: The system can continuously monitor 24/7 without human attention, providing more frequent and accurate readings. It reduces human error in recording data. Disadvantages: The initial cost of sensors and equipment is high. If the system malfunctions, data may be lost or inaccurate without a person to notice. Maintenance is required, and the system cannot adapt to unusual conditions the way a human could.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.06", "question": "Define the term robot.", "answer": "A robot is a mechanical device that performs an action, usually an action that a human would perform. It can be controlled by a person, automated, or a mixture of both.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.07", "question": "Identify three characteristics of a robot.", "answer": "(1) A mechanical structure or framework \u2014 the physical body of the robot. (2) Electrical components including sensors, microprocessors, and actuators. (3) Programmable \u2014 a program can be written for the robot to follow.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.08", "question": "Identify two ways robots can be used in industry.", "answer": "(1) Robots can manage the packing of items, for example putting packets of biscuits into boxes. (2) Robots can perform tasks requiring exact precision, such as building electronic circuits or assembling components on a production line.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.09", "question": "Give one benefit and one drawback of the use of domestic robots.", "answer": "Benefit: Domestic robots such as robot vacuum cleaners save people time as they can perform household tasks automatically. Drawback: They still need monitoring, have limitations (e.g. cannot go up and down stairs), and have a high initial purchase cost.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.10", "question": "Discuss the use of driverless cars.", "answer": "Driverless (self-driving) cars are robots that read their environment using sensors and move accordingly. Benefits include improved safety as robots can react faster than humans, and they can operate continuously. Drawbacks include high upfront cost, security risks if someone accesses and changes the car&#x27;s programming, the technology is still being developed and may not handle all scenarios, and ethical questions about decision-making in accidents.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.11", "question": "Define the term artificial intelligence.", "answer": "Artificial intelligence (AI) is the development of programs to simulate human behaviour. It encompasses areas such as image recognition, speech recognition, natural language processing, computer games, and diagnosis systems.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.12", "question": "Describe what is meant by machine learning.", "answer": "Machine learning is a specialist area of artificial intelligence where a program can learn, amend its own data and algorithms, and change its own rules and logic. It can be supervised (the user provides labelled training data) or unsupervised (the program learns patterns from unlabelled data on its own).", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.13", "question": "State the purpose of an expert system.", "answer": "The purpose of an expert system is to emulate the expertise of a human specialist (such as a doctor or engineer) by asking the user a series of questions and using a knowledge base, rule base, and inference engine to determine the solution or answer.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.14", "question": "Give two examples of where expert systems can be used.", "answer": "(1) Troubleshooting technical problems, such as diagnosing why a printer is not working. (2) Medical diagnosis, where the system asks about symptoms and suggests possible conditions or treatments.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.15", "question": "An expert system has an inference engine and interface. Describe the two other component parts of an expert system.", "answer": "(1) Knowledge base \u2014 this is a list of facts stored in the system (e.g. there is a green light below the power symbol on a printer). (2) Rule base \u2014 this links the facts together using logical rules (e.g. if the green light is on, then the printer has power).", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.16", "question": "Describe how machine learning can be used to develop speech recognition systems.", "answer": "In a speech recognition system, machine learning is used to train the program to recognise spoken words. In supervised learning, the system is provided with audio samples labelled with the correct words. The program learns the patterns and characteristics of different words. Over time, the system improves its accuracy by processing more data. In unsupervised learning, the system could identify patterns in audio data by clustering similar sounds together. The system adapts its algorithms to handle different accents, speeds, and pronunciations.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.17", "question": "A car has a proximity detection system. If an object is within a set distance from the car, an alarm is sounded in the car. Describe how the automated system detects objects and alerts the driver.", "answer": "A proximity sensor (such as an ultrasonic sensor) continuously measures the distance to nearby objects. The analogue data from the sensor is converted to digital by an ADC. The digital data is sent to the microprocessor, which compares the distance reading to a pre-stored threshold value. If the measured distance is less than (below) the stored threshold, the microprocessor determines the object is too close and sends a signal to an actuator (speaker/buzzer) to sound an alarm. This process repeats continuously while the system is active.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.18", "question": "A factory that builds furniture is thinking about buying robots to replace the workers. Discuss the advantages and disadvantages of the factory replacing the workers with robots.", "answer": "Advantages: (1) Robots can work continuously 24/7 without rest, increasing production output. (2) Robots are more precise and not prone to human error, resulting in fewer faulty products. (3) Robots can perform dangerous tasks, improving safety. Disadvantages: (1) The initial cost of purchasing robots and developing software is very large. (2) Existing workers will lose their jobs, though new maintenance and programming roles will be created with different skill sets. (3) Robots require ongoing maintenance, and if they break down, production stops until repaired.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.19", "question": "Describe how artificial intelligence can be used to allow robots to react to their environment.", "answer": "AI enables robots to use sensors to collect data about their environment (e.g. infrared sensors to detect obstacles, cameras for image recognition). The AI system has programmed rules that determine actions based on sensor input. It can reason \u2014 for example, if an obstacle is detected ahead, the rule says to turn. Advanced AI robots can use machine learning to improve over time, adapting their behaviour based on past experiences. For example, a robot filming animals could learn which movements are less likely to startle the animals.", "marks": 2, "hasImage": false, "imagePath": null}, {"id": "Question CS6.20", "question": "Explain the difference between supervised and unsupervised machine learning, giving an example of each.", "answer": "In supervised learning, the user provides the program with labelled training data, telling it what each piece of data represents. Example: showing the system images labelled as &quot;dog&quot; or &quot;horse&quot; so it learns to identify each animal. In unsupervised learning, data is input without labels and the program identifies patterns on its own. Example: clustering, where the program plots features of images on a graph and groups similar images together without being told what they are.\n\n## Exam Focus Priorities\n\n1. Be able to describe the role of sensors, microprocessors, and actuators in an automated system \u2014 this is a very common exam question\n2. Know the step-by-step process: sensor reads \u2192 ADC converts \u2192 microprocessor compares \u2192 actuator acts \u2192 loop repeats\n3. Be able to evaluate automation in di", "marks": 2, "hasImage": false, "imagePath": null}], "totalMarks": 40};
+let timerInterval = null;
+let secondsLeft = 0;
+let startTime = null;
+
+document.getElementById('totalQ').textContent = EXAM.questions.length;
+document.getElementById('totalM').textContent = EXAM.totalMarks;
+document.getElementById('timeLimit').textContent = EXAM.timeMinutes;
+
+function startExam() {
+  document.getElementById('btnStart').classList.add('hidden');
+  document.getElementById('questionsArea').classList.remove('hidden');
+  document.getElementById('submitArea').classList.remove('hidden');
+  secondsLeft = EXAM.timeMinutes * 60;
+  startTime = Date.now();
+  renderQuestions();
+  timerInterval = setInterval(tick, 1000);
+  tick();
+}
+
+function tick() {
+  secondsLeft--;
+  const m = Math.floor(secondsLeft / 60);
+  const s = secondsLeft % 60;
+  const el = document.getElementById('timer');
+  el.textContent = `${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  el.className = 'timer' + (secondsLeft < 300 ? (secondsLeft < 60 ? ' danger' : ' warning') : '');
+  if (secondsLeft <= 0) { clearInterval(timerInterval); submitExam(); }
+}
+
+function renderQuestions() {
+  const area = document.getElementById('questionsArea');
+  area.innerHTML = '';
+  EXAM.questions.forEach((q, i) => {
+    const div = document.createElement('div');
+    div.className = 'q-card';
+    div.innerHTML = `
+      <div class="q-header">
+        <span class="q-num">Question ${i+1} — ${q.id}</span>
+        <span class="q-marks">[${q.marks} marks]</span>
+      </div>
+      <div class="q-text">${q.question}</div>
+      <textarea id="ans_${i}" placeholder="Write your answer here..."></textarea>
+      <div class="answer-reveal" id="reveal_${i}"><b>Model Answer:</b><br>${q.answer}</div>
+    `;
+    area.appendChild(div);
+  });
+}
+
+function submitExam() {
+  clearInterval(timerInterval);
+  const elapsed = Math.round((Date.now() - startTime) / 1000);
+  const m = Math.floor(elapsed / 60);
+  const s = elapsed % 60;
+
+  document.getElementById('submitArea').classList.add('hidden');
+  document.querySelectorAll('.answer-reveal').forEach(el => el.classList.add('show'));
+  document.querySelectorAll('textarea').forEach(el => el.disabled = true);
+  document.getElementById('timer').textContent = 'DONE';
+  document.getElementById('timer').className = 'timer';
+
+  const results = document.getElementById('resultsArea');
+  results.classList.remove('hidden');
+  results.innerHTML = `
+    <div class="results">
+      <h2>Exam Complete</h2>
+      <div class="time-taken">Time taken: ${m}m ${s}s</div>
+      <p style="margin-top:12px;color:#555;">Model answers shown below each question. Review your responses.</p>
+    </div>
+  `;
+
+  try {
+    const sessions = JSON.parse(localStorage.getItem('sf_exam_sessions') || '[]');
+    sessions.push({ date: new Date().toISOString(), questions: EXAM.questions.length, totalMarks: EXAM.totalMarks, timeSec: elapsed });
+    localStorage.setItem('sf_exam_sessions', JSON.stringify(sessions));
+  } catch(e) {}
+}
+</script>
+</body>
+</html>

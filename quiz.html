@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CS6 Automation and Emerging Technologies — Cambridge IGCSE Computer Science Study Guide — Interactive Quiz</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body {
+    font-family: Arial, 'Helvetica Neue', sans-serif;
+    background: #f5f7fa;
+    color: #1a1a1a;
+    line-height: 1.6;
+  }
+  .header {
+    background: #1a3c5e;
+    color: white;
+    padding: 24px 20px;
+    text-align: center;
+  }
+  .header h1 { font-size: 24px; margin-bottom: 4px; }
+  .header p { opacity: 0.8; font-size: 14px; }
+  .container { max-width: 800px; margin: 0 auto; padding: 20px; }
+  .progress-bar {
+    background: #e0e0e0;
+    border-radius: 8px;
+    height: 8px;
+    margin: 20px 0;
+    overflow: hidden;
+  }
+  .progress-fill {
+    background: #2a5f8f;
+    height: 100%;
+    transition: width 0.3s ease;
+    border-radius: 8px;
+  }
+  .score-display {
+    text-align: center;
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 16px;
+  }
+  .question-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: none;
+  }
+  .question-card.active { display: block; }
+  .question-card .q-number {
+    font-size: 12px;
+    color: #888;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+  }
+  .question-card .q-type {
+    display: inline-block;
+    background: #e8f0fe;
+    color: #1a3c5e;
+    padding: 2px 10px;
+    border-radius: 12px;
+    font-size: 11px;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .question-card .q-text {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 16px;
+  }
+  .option {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 12px 16px;
+    margin-bottom: 8px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    background: white;
+    font-size: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .option:hover { border-color: #2a5f8f; background: #f0f4ff; }
+  .option.selected { border-color: #2a5f8f; background: #e8f0fe; }
+  .option.correct { border-color: #2d8a4e; background: #e8f5e9; }
+  .option.wrong { border-color: #c62828; background: #ffebee; }
+  .option:disabled { cursor: default; opacity: 0.85; }
+  .tf-btns { display: flex; gap: 12px; }
+  .tf-btns button {
+    flex: 1;
+    padding: 14px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    background: white;
+    transition: all 0.2s;
+  }
+  .tf-btns button:hover { border-color: #2a5f8f; }
+  .tf-btns button.correct { border-color: #2d8a4e; background: #e8f5e9; }
+  .tf-btns button.wrong { border-color: #c62828; background: #ffebee; }
+  .freeform-area {
+    width: 100%;
+    min-height: 80px;
+    padding: 12px;
+    border: 2px solid #e0e0e0;
+    border-radius: 8px;
+    font-family: inherit;
+    font-size: 14px;
+    resize: vertical;
+  }
+  .explanation {
+    margin-top: 12px;
+    padding: 12px 16px;
+    background: #f8fafc;
+    border-left: 3px solid #2a5f8f;
+    border-radius: 4px;
+    font-size: 14px;
+    display: none;
+  }
+  .explanation.show { display: block; }
+  .nav-btns {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 16px;
+  }
+  .nav-btns button {
+    padding: 10px 24px;
+    border: none;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+  }
+  .btn-next { background: #2a5f8f; color: white; }
+  .btn-next:hover { background: #1a3c5e; }
+  .btn-reveal { background: #e0e0e0; color: #333; }
+  .btn-reveal:hover { background: #d0d0d0; }
+  .results-card {
+    background: white;
+    border-radius: 12px;
+    padding: 32px;
+    text-align: center;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    display: none;
+  }
+  .results-card h2 { font-size: 28px; margin-bottom: 8px; }
+  .results-card .score-big {
+    font-size: 64px;
+    font-weight: 700;
+    color: #2a5f8f;
+    margin: 16px 0;
+  }
+  .results-card .grade { font-size: 18px; margin-bottom: 24px; }
+  .btn-restart {
+    padding: 12px 32px;
+    background: #2a5f8f;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body>
+<div class="header">
+  <h1>CS6 Automation and Emerging Technologies — Cambridge IGCSE Computer Science Study Guide</h1>
+  <p>Interactive Study Quiz</p>
+</div>
+<div class="container">
+  <div class="progress-bar"><div class="progress-fill" id="progressFill"></div></div>
+  <div class="score-display" id="scoreDisplay">Question 1 of —</div>
+  <div id="questionsContainer"></div>
+  <div class="results-card" id="resultsCard">
+    <h2>Quiz Complete!</h2>
+    <div class="score-big" id="finalScore">0%</div>
+    <div class="grade" id="gradeText"></div>
+    <button class="btn-restart" onclick="restart()">Try Again</button>
+  </div>
+</div>
+<script>
+const DATA = {"title": "CS6 Automation and Emerging Technologies \u2014 Cambridge IGCSE Computer Science Study Guide", "mcq": [{"id": "term_0", "type": "mcq", "question": "What is the definition of <b>Automated system</b>?", "options": ["The ability of an AI system to use logic and rules to develop and derive new facts", "Real-world continuous data measured by sensors (e.g. 23.5 \u00b0C)", "A system that performs actions without interaction with humans, using sensors, a microprocessor, and actuators", "An area of AI that identifies words spoken and stores them"], "correct": 2, "explanation": "A system that performs actions without interaction with humans, using sensors, a microprocessor, and actuators"}, {"id": "term_1", "type": "mcq", "question": "What is the definition of <b>Sensor</b>?", "options": ["A device that measures the environment and sends data onwards (e.g. temperature, infrared, pressure, pH, light sensors)", "A device that converts analogue sensor readings into digital binary data for the microprocessor", "The part of an expert system that decides which question to ask next or which answer to give by applying rules to the knowledge base", "An area of AI that identifies objects or people in an image"], "correct": 0, "explanation": "A device that measures the environment and sends data onwards (e.g. temperature, infrared, pressure, pH, light sensors)"}, {"id": "term_2", "type": "mcq", "question": "What is the definition of <b>Microprocessor</b>?", "options": ["The component that processes data from sensors, compares it to stored values, and determines the required action", "An unsupervised learning technique where data points are grouped based on similarity without human labels", "A type of machine learning where the user tells the program what its data means by providing labelled examples", "A device that measures the environment and sends data onwards (e.g. temperature, infrared, pressure, pH, light sensors)"], "correct": 0, "explanation": "The component that processes data from sensors, compares it to stored values, and determines the required action"}, {"id": "term_3", "type": "mcq", "question": "What is the definition of <b>Actuator</b>?", "options": ["A device that receives a signal from the microprocessor and performs a physical action (e.g. opening a door, turning on heating)", "An area of AI that receives commands not in a set format and performs the required response", "An area of AI that identifies objects or people in an image", "The area that covers the design, construction, and operation of robots"], "correct": 0, "explanation": "A device that receives a signal from the microprocessor and performs a physical action (e.g. opening a door, turning on heating)"}, {"id": "term_4", "type": "mcq", "question": "What is the definition of <b>Analogue data</b>?", "options": ["Real-world continuous data measured by sensors (e.g. 23.5 \u00b0C)", "A device that measures the environment and sends data onwards (e.g. temperature, infrared, pressure, pH, light sensors)", "An area of AI that identifies objects or people in an image", "A component of an expert system that links facts using logical rules"], "correct": 0, "explanation": "Real-world continuous data measured by sensors (e.g. 23.5 \u00b0C)"}, {"id": "term_5", "type": "mcq", "question": "What is the definition of <b>Digital data</b>?", "options": ["The development of programs to simulate human behaviour, including image recognition, speech recognition, and reasoning", "A component of an expert system that links facts using logical rules", "A device that measures the environment and sends data onwards (e.g. temperature, infrared, pressure, pH, light sensors)", "Binary data (e.g. 01101010) that the microprocessor can understand and process"], "correct": 3, "explanation": "Binary data (e.g. 01101010) that the microprocessor can understand and process"}, {"id": "term_6", "type": "mcq", "question": "What is the definition of <b>Analogue-to-digital converter (ADC)</b>?", "options": ["An area of AI that identifies words spoken and stores them", "A device that converts analogue sensor readings into digital binary data for the microprocessor", "A special type of AI system that attempts to emulate the expertise of a human by asking questions to determine a solution", "A type of machine learning where the user tells the program what its data means by providing labelled examples"], "correct": 1, "explanation": "A device that converts analogue sensor readings into digital binary data for the microprocessor"}, {"id": "term_7", "type": "mcq", "question": "What is the definition of <b>Robot</b>?", "options": ["A mechanical device that performs an action, usually one that a human would perform", "A type of machine learning where the program learns from data without being told what it represents, often using clustering", "A system that performs actions without interaction with humans, using sensors, a microprocessor, and actuators", "The development of programs to simulate human behaviour, including image recognition, speech recognition, and reasoning"], "correct": 0, "explanation": "A mechanical device that performs an action, usually one that a human would perform"}, {"id": "term_8", "type": "mcq", "question": "What is the definition of <b>Robotics</b>?", "options": ["A specialist area of AI where a program can learn, amend its own data and algorithms, and change its own rules and logic", "An area of AI that receives commands not in a set format and performs the required response", "The area that covers the design, construction, and operation of robots", "A device that measures the environment and sends data onwards (e.g. temperature, infrared, pressure, pH, light sensors)"], "correct": 2, "explanation": "The area that covers the design, construction, and operation of robots"}, {"id": "term_9", "type": "mcq", "question": "What is the definition of <b>Programmable</b>?", "options": ["The ability to write a program for a robot or device to follow specific instructions", "A device that receives a signal from the microprocessor and performs a physical action (e.g. opening a door, turning on heating)", "Real-world continuous data measured by sensors (e.g. 23.5 \u00b0C)", "The part of an expert system that outputs questions and statements to the user and allows input"], "correct": 0, "explanation": "The ability to write a program for a robot or device to follow specific instructions"}, {"id": "term_10", "type": "mcq", "question": "What is the definition of <b>Artificial intelligence (AI)</b>?", "options": ["A type of machine learning where the user tells the program what its data means by providing labelled examples", "The development of programs to simulate human behaviour, including image recognition, speech recognition, and reasoning", "A special type of AI system that attempts to emulate the expertise of a human by asking questions to determine a solution", "An area of AI that identifies words spoken and stores them"], "correct": 1, "explanation": "The development of programs to simulate human behaviour, including image recognition, speech recognition, and reasoning"}, {"id": "term_11", "type": "mcq", "question": "What is the definition of <b>Turing Test</b>?", "options": ["The component that processes data from sensors, compares it to stored values, and determines the required action", "An area of AI that identifies words spoken and stores them", "A test developed by Alan Turing in 1950 to assess whether a computer can display intelligence by fooling a human in conversation", "The ability of an AI system to use logic and rules to develop and derive new facts"], "correct": 2, "explanation": "A test developed by Alan Turing in 1950 to assess whether a computer can display intelligence by fooling a human in conversation"}, {"id": "term_12", "type": "mcq", "question": "What is the definition of <b>Machine learning</b>?", "options": ["A specialist area of AI where a program can learn, amend its own data and algorithms, and change its own rules and logic", "The ability to write a program for a robot or device to follow specific instructions", "The component that processes data from sensors, compares it to stored values, and determines the required action", "A mechanical device that performs an action, usually one that a human would perform"], "correct": 0, "explanation": "A specialist area of AI where a program can learn, amend its own data and algorithms, and change its own rules and logic"}, {"id": "term_13", "type": "mcq", "question": "What is the definition of <b>Supervised learning</b>?", "options": ["Real-world continuous data measured by sensors (e.g. 23.5 \u00b0C)", "The part of an expert system that outputs questions and statements to the user and allows input", "Binary data (e.g. 01101010) that the microprocessor can understand and process", "A type of machine learning where the user tells the program what its data means by providing labelled examples"], "correct": 3, "explanation": "A type of machine learning where the user tells the program what its data means by providing labelled examples"}, {"id": "term_14", "type": "mcq", "question": "What is the definition of <b>Unsupervised learning</b>?", "options": ["A system that performs actions without interaction with humans, using sensors, a microprocessor, and actuators", "A type of machine learning where the program learns from data without being told what it represents, often using clustering", "The development of programs to simulate human behaviour, including image recognition, speech recognition, and reasoning", "A device that receives a signal from the microprocessor and performs a physical action (e.g. opening a door, turning on heating)"], "correct": 1, "explanation": "A type of machine learning where the program learns from data without being told what it represents, often using clustering"}, {"id": "term_15", "type": "mcq", "question": "What is the definition of <b>Expert system</b>?", "options": ["An unsupervised learning technique where data points are grouped based on similarity without human labels", "An area of AI that identifies words spoken and stores them", "The component that processes data from sensors, compares it to stored values, and determines the required action", "A special type of AI system that attempts to emulate the expertise of a human by asking questions to determine a solution"], "correct": 3, "explanation": "A special type of AI system that attempts to emulate the expertise of a human by asking questions to determine a solution"}, {"id": "term_16", "type": "mcq", "question": "What is the definition of <b>Knowledge base</b>?", "options": ["The part of an expert system that outputs questions and statements to the user and allows input", "An area of AI that identifies words spoken and stores them", "The ability of an AI system to use logic and rules to develop and derive new facts", "A component of an expert system that stores a list of facts"], "correct": 3, "explanation": "A component of an expert system that stores a list of facts"}, {"id": "term_17", "type": "mcq", "question": "What is the definition of <b>Rule base</b>?", "options": ["The part of an expert system that outputs questions and statements to the user and allows input", "The component that processes data from sensors, compares it to stored values, and determines the required action", "A mechanical device that performs an action, usually one that a human would perform", "A component of an expert system that links facts using logical rules"], "correct": 3, "explanation": "A component of an expert system that links facts using logical rules"}, {"id": "term_18", "type": "mcq", "question": "What is the definition of <b>Inference engine</b>?", "options": ["A system that performs actions without interaction with humans, using sensors, a microprocessor, and actuators", "An area of AI that receives commands not in a set format and performs the required response", "The ability of an AI system to use logic and rules to develop and derive new facts", "The part of an expert system that decides which question to ask next or which answer to give by applying rules to the knowledge base"], "correct": 3, "explanation": "The part of an expert system that decides which question to ask next or which answer to give by applying rules to the knowledge base"}, {"id": "term_19", "type": "mcq", "question": "What is the definition of <b>User interface</b>?", "options": ["Binary data (e.g. 01101010) that the microprocessor can understand and process", "A special type of AI system that attempts to emulate the expertise of a human by asking questions to determine a solution", "The part of an expert system that decides which question to ask next or which answer to give by applying rules to the knowledge base", "The part of an expert system that outputs questions and statements to the user and allows input"], "correct": 3, "explanation": "The part of an expert system that outputs questions and statements to the user and allows input"}, {"id": "term_20", "type": "mcq", "question": "What is the definition of <b>Image recognition</b>?", "options": ["An area of AI that identifies words spoken and stores them", "The ability of an AI system to use logic and rules to develop and derive new facts", "An area of AI that identifies objects or people in an image", "A device that receives a signal from the microprocessor and performs a physical action (e.g. opening a door, turning on heating)"], "correct": 2, "explanation": "An area of AI that identifies objects or people in an image"}, {"id": "term_21", "type": "mcq", "question": "What is the definition of <b>Speech recognition</b>?", "options": ["A type of machine learning where the program learns from data without being told what it represents, often using clustering", "The area that covers the design, construction, and operation of robots", "A test developed by Alan Turing in 1950 to assess whether a computer can display intelligence by fooling a human in conversation", "An area of AI that identifies words spoken and stores them"], "correct": 3, "explanation": "An area of AI that identifies words spoken and stores them"}, {"id": "term_22", "type": "mcq", "question": "What is the definition of <b>Natural language processing</b>?", "options": ["An area of AI that identifies words spoken and stores them", "Binary data (e.g. 01101010) that the microprocessor can understand and process", "An area of AI that receives commands not in a set format and performs the required response", "A device that converts analogue sensor readings into digital binary data for the microprocessor"], "correct": 2, "explanation": "An area of AI that receives commands not in a set format and performs the required response"}, {"id": "term_23", "type": "mcq", "question": "What is the definition of <b>Reasoning</b>?", "options": ["A device that receives a signal from the microprocessor and performs a physical action (e.g. opening a door, turning on heating)", "An area of AI that identifies words spoken and stores them", "A type of machine learning where the program learns from data without being told what it represents, often using clustering", "The ability of an AI system to use logic and rules to develop and derive new facts"], "correct": 3, "explanation": "The ability of an AI system to use logic and rules to develop and derive new facts"}, {"id": "term_24", "type": "mcq", "question": "What is the definition of <b>Clustering</b>?", "options": ["An unsupervised learning technique where data points are grouped based on similarity without human labels", "A mechanical device that performs an action, usually one that a human would perform", "Real-world continuous data measured by sensors (e.g. 23.5 \u00b0C)", "The ability to write a program for a robot or device to follow specific instructions"], "correct": 0, "explanation": "An unsupervised learning technique where data points are grouped based on similarity without human labels"}], "freeform": [{"id": "qa_0", "type": "freeform", "question": "What type of data does a microprocessor process?", "answer": "A microprocessor processes digital (binary) data. Analogue data from sensors must first be converted to digital data by an analogue-to-digital converter (ADC) before the microprocessor can process it.", "marks": null}, {"id": "qa_1", "type": "freeform", "question": "What tasks does a sensor perform in an automated system?", "answer": "A sensor reads/measures the environment (e.g. temperature, light, motion, pressure) and sends the data onwards to be processed. Sensors do not process data themselves \u2014 they only detect and transmit it.", "marks": null}, {"id": "qa_2", "type": "freeform", "question": "Define the term robot.", "answer": "A robot is a mechanical device that performs an action, usually an action that a human would perform. It can be controlled by a person, automated, or a mixture of both.", "marks": null}, {"id": "qa_3", "type": "freeform", "question": "Identify three characteristics of a robot.", "answer": "(1) A mechanical structure or framework \u2014 the physical body of the robot. (2) Electrical components including sensors, microprocessors, and actuators. (3) Programmable \u2014 a program can be written for the robot to follow.", "marks": null}, {"id": "qa_4", "type": "freeform", "question": "Identify two ways robots can be used in industry.", "answer": "(1) Robots can manage the packing of items, for example putting packets of biscuits into boxes. (2) Robots can perform tasks requiring exact precision, such as building electronic circuits or assembling components on a production line.", "marks": null}, {"id": "qa_5", "type": "freeform", "question": "Give one benefit and one drawback of the use of domestic robots.", "answer": "Benefit: Domestic robots such as robot vacuum cleaners save people time as they can perform household tasks automatically. Drawback: They still need monitoring, have limitations (e.g. cannot go up and down stairs), and have a high initial purchase cost.", "marks": null}, {"id": "qa_6", "type": "freeform", "question": "Define the term artificial intelligence.", "answer": "Artificial intelligence (AI) is the development of programs to simulate human behaviour. It encompasses areas such as image recognition, speech recognition, natural language processing, computer games, and diagnosis systems.", "marks": null}, {"id": "qa_7", "type": "freeform", "question": "State the purpose of an expert system.", "answer": "The purpose of an expert system is to emulate the expertise of a human specialist (such as a doctor or engineer) by asking the user a series of questions and using a knowledge base, rule base, and inference engine to determine the solution or answer.", "marks": null}, {"id": "qa_8", "type": "freeform", "question": "Give two examples of where expert systems can be used.", "answer": "(1) Troubleshooting technical problems, such as diagnosing why a printer is not working. (2) Medical diagnosis, where the system asks about symptoms and suggests possible conditions or treatments.", "marks": null}, {"id": "qa_9", "type": "freeform", "question": "An expert system has an inference engine and interface. Describe the two other component parts of an expert system.", "answer": "(1) Knowledge base \u2014 this is a list of facts stored in the system (e.g. there is a green light below the power symbol on a printer). (2) Rule base \u2014 this links the facts together using logical rules (e.g. if the green light is on, then the printer has power).", "marks": null}], "truefalse": [{"id": "tf_0", "type": "truefalse", "statement": "Sensors \u2014 to measure the environment (e.g. temperature sensor, light sensor, pH sensor, infrared sensor, pressure sensor).", "correct": true, "explanation": "Sensors \u2014 to measure the environment (e.g. temperature sensor, light sensor, pH sensor, infrared sensor, pressure sensor)."}, {"id": "tf_1", "type": "truefalse", "statement": "Microprocessor \u2014 to process data from the sensors and determine if an action needs to be taken.", "correct": true, "explanation": "Microprocessor \u2014 to process data from the sensors and determine if an action needs to be taken."}, {"id": "tf_2", "type": "truefalse", "statement": "Actuators \u2014 to create a movement or perform an action (e.g. open a door, turn on heating).", "correct": true, "explanation": "Actuators \u2014 to create a movement or perform an action (e.g. open a door, turn on heating)."}, {"id": "tf_3", "type": "truefalse", "statement": "Input: The data from the sensors (e.g. pressure sensor detects a person, infrared sensor detects movement).", "correct": true, "explanation": "Input: The data from the sensors (e.g. pressure sensor detects a person, infrared sensor detects movement)."}, {"id": "tf_4", "type": "truefalse", "statement": "Process: Analogue data converted to digital; microprocessor compares received data with stored values and determines the action.", "correct": true, "explanation": "Process: Analogue data converted to digital; microprocessor compares received data with stored values and determines the action."}, {"id": "tf_5", "type": "truefalse", "statement": "Output: Signal sent to actuator to perform the required action (e.g. open a door for 5 seconds, reset timer if another person detected).", "correct": true, "explanation": "Output: Signal sent to actuator to perform the required action (e.g. open a door for 5 seconds, reset timer if another person detected)."}, {"id": "tf_6", "type": "truefalse", "statement": "Car Manufacturing (Industry):", "correct": true, "explanation": "Car Manufacturing (Industry):"}, {"id": "tf_7", "type": "truefalse", "statement": "Nuclear Power Plant (Science):", "correct": true, "explanation": "Nuclear Power Plant (Science):"}, {"id": "tf_8", "type": "truefalse", "statement": "Sensors \u2014 to record the environment (e.g. position of a component being built)", "correct": true, "explanation": "Sensors \u2014 to record the environment (e.g. position of a component being built)"}, {"id": "tf_9", "type": "truefalse", "statement": "Microprocessors \u2014 to take readings from sensors and decide the action to perform", "correct": true, "explanation": "Microprocessors \u2014 to take readings from sensors and decide the action to perform"}, {"id": "tf_10", "type": "truefalse", "statement": "Actuators \u2014 to make the robot move", "correct": true, "explanation": "Actuators \u2014 to make the robot move"}, {"id": "tf_11", "type": "truefalse", "statement": "Robot nurses can move around hospitals to visit and interact with patients, saving doctors and nurses time.", "correct": true, "explanation": "Robot nurses can move around hospitals to visit and interact with patients, saving doctors and nurses time."}, {"id": "tf_12", "type": "truefalse", "statement": "Drawbacks: Programming errors or hacking could cause harm. If a surgeon is controlling remotely and the network connection is lost, the procedure stops. Backup systems must be in place.", "correct": true, "explanation": "Drawbacks: Programming errors or hacking could cause harm. If a surgeon is controlling remotely and the network connection is lost, the procedure stops. Backup systems must be in place."}, {"id": "tf_13", "type": "truefalse", "statement": "Automated tractors use satellites and satellite navigation to guide their movements, allowing farmers to focus on other tasks.", "correct": true, "explanation": "Automated tractors use satellites and satellite navigation to guide their movements, allowing farmers to focus on other tasks."}, {"id": "tf_14", "type": "truefalse", "statement": "Factory transport robots move boxes of product to lorries. Completely automated, keeping people away from dangerous movements. They replace jobs but also create new maintenance roles.", "correct": true, "explanation": "Factory transport robots move boxes of product to lorries. Completely automated, keeping people away from dangerous movements. They replace jobs but also create new maintenance roles."}]};
+let allQ = [];
+let idx = 0;
+let score = 0;
+let answered = 0;
+
+function init() {
+  allQ = [...(DATA.mcq||[]), ...(DATA.truefalse||[]), ...(DATA.freeform||[])];
+  if (!allQ.length) { document.getElementById('scoreDisplay').textContent = 'No questions available.'; return; }
+  idx = 0; score = 0; answered = 0;
+  renderAll();
+  showQuestion(0);
+}
+
+function renderAll() {
+  const c = document.getElementById('questionsContainer');
+  c.innerHTML = '';
+  allQ.forEach((q, i) => {
+    const card = document.createElement('div');
+    card.className = 'question-card';
+    card.id = 'q_' + i;
+
+    let typeLabel = q.type === 'mcq' ? 'Multiple Choice' : q.type === 'truefalse' ? 'True / False' : 'Written Answer';
+    let inner = `<div class="q-number">Question ${i+1} of ${allQ.length}</div>`;
+    inner += `<span class="q-type">${typeLabel}</span>`;
+
+    if (q.type === 'mcq') {
+      inner += `<div class="q-text">${q.question}</div>`;
+      q.options.forEach((o, oi) => {
+        inner += `<button class="option" data-qi="${i}" data-oi="${oi}" onclick="answerMCQ(${i},${oi})">${o}</button>`;
+      });
+      inner += `<div class="explanation" id="expl_${i}">${q.explanation||''}</div>`;
+    } else if (q.type === 'truefalse') {
+      inner += `<div class="q-text">${q.statement}</div>`;
+      inner += `<div class="tf-btns"><button data-qi="${i}" data-val="true" onclick="answerTF(${i},true)">True</button>`;
+      inner += `<button data-qi="${i}" data-val="false" onclick="answerTF(${i},false)">False</button></div>`;
+      inner += `<div class="explanation" id="expl_${i}">Correct statement: ${q.explanation||''}</div>`;
+    } else {
+      inner += `<div class="q-text">${q.question}</div>`;
+      inner += `<textarea class="freeform-area" id="ans_${i}" placeholder="Type your answer..."></textarea>`;
+      inner += `<div class="explanation" id="expl_${i}"><b>Model answer:</b> ${q.answer||''}</div>`;
+    }
+
+    inner += `<div class="nav-btns">`;
+    if (q.type === 'freeform') inner += `<button class="btn-reveal" onclick="revealFreeform(${i})">Show Answer</button>`;
+    else inner += `<span></span>`;
+    inner += `<button class="btn-next" id="next_${i}" onclick="nextQ()">${i===allQ.length-1?'Finish':'Next →'}</button>`;
+    inner += `</div>`;
+
+    card.innerHTML = inner;
+    c.appendChild(card);
+  });
+}
+
+function showQuestion(n) {
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+  const card = document.getElementById('q_' + n);
+  if (card) card.classList.add('active');
+  document.getElementById('progressFill').style.width = ((n+1)/allQ.length*100) + '%';
+  document.getElementById('scoreDisplay').textContent = `Question ${n+1} of ${allQ.length} · Score: ${score}/${answered}`;
+}
+
+function answerMCQ(qi, oi) {
+  const q = allQ[qi];
+  const btns = document.querySelectorAll(`button[data-qi="${qi}"]`);
+  btns.forEach(b => { b.disabled = true; b.classList.remove('selected'); });
+  btns[oi].classList.add('selected');
+  if (oi === q.correct) { btns[oi].classList.add('correct'); score++; }
+  else { btns[oi].classList.add('wrong'); btns[q.correct].classList.add('correct'); }
+  answered++;
+  document.getElementById('expl_' + qi).classList.add('show');
+  document.getElementById('scoreDisplay').textContent = `Question ${qi+1} of ${allQ.length} · Score: ${score}/${answered}`;
+}
+
+function answerTF(qi, val) {
+  const q = allQ[qi];
+  const btns = document.querySelectorAll(`button[data-qi="${qi}"]`);
+  btns.forEach(b => b.disabled = true);
+  const correct = val === q.correct;
+  btns.forEach(b => {
+    if (String(b.dataset.val) === String(q.correct)) b.classList.add('correct');
+    if (b.dataset.val === String(val) && !correct) b.classList.add('wrong');
+  });
+  if (correct) score++;
+  answered++;
+  document.getElementById('expl_' + qi).classList.add('show');
+  document.getElementById('scoreDisplay').textContent = `Question ${qi+1} of ${allQ.length} · Score: ${score}/${answered}`;
+}
+
+function revealFreeform(qi) {
+  document.getElementById('expl_' + qi).classList.add('show');
+  answered++;
+  document.getElementById('scoreDisplay').textContent = `Question ${qi+1} of ${allQ.length} · Score: ${score}/${answered}`;
+}
+
+function nextQ() {
+  idx++;
+  if (idx >= allQ.length) { showResults(); return; }
+  showQuestion(idx);
+}
+
+function showResults() {
+  document.querySelectorAll('.question-card').forEach(c => c.classList.remove('active'));
+  const pct = answered > 0 ? Math.round(score/answered*100) : 0;
+  document.getElementById('finalScore').textContent = pct + '%';
+  let grade = pct >= 90 ? 'Outstanding!' : pct >= 70 ? 'Great work!' : pct >= 50 ? 'Good effort — keep studying!' : 'Review the material and try again.';
+  document.getElementById('gradeText').textContent = grade + ` (${score}/${answered} correct)`;
+  document.getElementById('resultsCard').style.display = 'block';
+  document.getElementById('progressFill').style.width = '100%';
+  // Save to localStorage for dashboard
+  try {
+    const sessions = JSON.parse(localStorage.getItem('sf_quiz_sessions') || '[]');
+    sessions.push({ date: new Date().toISOString(), score, total: answered, pct });
+    localStorage.setItem('sf_quiz_sessions', JSON.stringify(sessions));
+  } catch(e) {}
+}
+
+function restart() {
+  document.getElementById('resultsCard').style.display = 'none';
+  init();
+}
+
+init();
+</script>
+</body>
+</html>
